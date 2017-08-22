@@ -41,7 +41,6 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-
   <header class="main-header">
     <!-- Logo -->
     <a href="index2.html" class="logo">
@@ -293,7 +292,7 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{ url('auth/logout') }}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -306,8 +305,10 @@
       </div>
     </nav>
   </header>
-  
+   
+
          @yield('content')
+  
   
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
@@ -510,6 +511,7 @@
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
+
 </div>
 <!-- ./wrapper -->
 
