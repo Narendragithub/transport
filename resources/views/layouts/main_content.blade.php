@@ -1,5 +1,4 @@
 @extends('layouts/main')
-
 @section('content')
   @extends('layouts/main_sidebar')
 <!-- Content Wrapper. Contains page content -->
