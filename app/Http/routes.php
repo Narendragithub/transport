@@ -30,3 +30,6 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 // Password reset routes...
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
+
+Route::get('/vehicles', 'VehicleController@index');
+Route::get('/addvehicle', 'VehicleController@create');

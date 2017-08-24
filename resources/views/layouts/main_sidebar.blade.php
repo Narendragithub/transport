@@ -27,15 +27,39 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          <a href="{{ url('/vehicles') }}">
+            <i class="fa fa-truck"></i> <span>Vehicle</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+            <li class="active"><a href="{{ url('/vehicles') }}"><i class="fa fa-list"></i>Vehicle List</a></li>
+            <li><a href="{{ url('/addvehicle') }}"><i class="fa fa-plus"></i> Add New</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-user"></i> <span>Driver</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="index.html"><i class="fa fa-list"></i>Driver List</a></li>
+            <li><a href="index2.html"><i class="fa fa-plus"></i> Add New</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-users"></i> <span>Client</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="index.html"><i class="fa fa-list"></i>Client List</a></li>
+            <li><a href="index2.html"><i class="fa fa-plus"></i> Add New</a></li>
           </ul>
         </li>
         <li class="treeview">
