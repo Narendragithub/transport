@@ -562,6 +562,7 @@
 <!-- page script -->
 <script>
   $(function () {
+    
     $('#example1').DataTable()
     $('#example2').DataTable({
       'paging'      : true,
@@ -570,8 +571,42 @@
       'ordering'    : true,
       'info'        : true,
       'autoWidth'   : false
-    })
-  })
+    });
+  });
+
+  function getDriverDetails()
+    {
+      var _token = $('input[name="_token"]').val();
+      $.ajax({
+           url: '/getDriver',
+           dataType: 'json',
+           type: 'POST',
+           data:{ _token : _token,id:$("#inputDriverid").val()},
+           error: function() {
+              
+           },
+           success: function(data) 
+           {
+            if(data['driver'])
+            {
+              $("#inputDrivermobileno").val(data['driver']['phone']);
+              $("#inputDriveraddress").val(data['driver']['address']);
+            }
+            else
+            {
+              $("#inputDrivermobileno").val('');
+              $("#inputDriveraddress").val('');
+            }
+              
+           }
+            
+           
+        });
+    }
+
+    $('.datepicker').datepicker({
+      autoclose: true
+    });
 </script>
 
 </body>

@@ -33,3 +33,9 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 Route::get('/vehicles', 'VehicleController@index');
 Route::get('/addvehicle', 'VehicleController@create');
+Route::post('/addvehicle', 'VehicleController@store');
+
+Route::get('/drivers', 'DriverController@index');
+Route::get('/adddriver', 'DriverController@create');
+Route::post('/adddriver', 'DriverController@store');
+Route::post('/getDriver', 'DriverController@getDriver');

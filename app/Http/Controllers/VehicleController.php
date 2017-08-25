@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Vehicle;
+use App\Driver;
 
 class VehicleController extends Controller
 {
@@ -16,8 +18,8 @@ class VehicleController extends Controller
      */
     public function index()
     {
+        return response()->view('vehicle_list', $data);
         
-        return view('vehicle_list');
     }
 
     /**
@@ -27,7 +29,8 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('add_vehicle');
+        $data['drivers'] = Driver::all();
+        return response()->view('add_vehicle', $data);
     }
 
     /**
@@ -38,7 +41,34 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vahicle= new Vehicle;
+        $vahicle->vehiclename=$request->vehiclename;
+        $vahicle->vehicleno=$request->vehicleno;
+        $vahicle->companyno=$request->vcompanyname;
+        $vahicle->companycode=$request->vcompanycode;
+        $vahicle->modelno=$request->modelno;
+        $vahicle->engineno=$request->engineno;
+        $vahicle->chasisno=$request->chasisno;
+        $vahicle->permittype=$request->permittype;
+        $vahicle->ins_companyname=$request->inscompany_name;
+        $vahicle->ins_companycode=$request->inscompany_code;
+        $vahicle->ins_policyno=$request->ins_policyno;
+        $vahicle->ins_date=$request->ins_date;
+        $vahicle->ins_expirdate=$request->ins_expdate;
+        $vahicle->ins_agentname=$request->ins_agentname;
+        $vahicle->ins_agentphone=$request->ins_agentphone;
+        $vahicle->ins_amount=$request->ins_amount;
+        $vahicle->ins_validatat=$request->ins_validat;
+        $vahicle->fin_companyname=$request->fin_companyname;
+        $vahicle->fin_companycode=$request->fin_companycode;
+        $vahicle->fin_accountno=$request->fin_accountno;
+        $vahicle->fin_premiumtype=$request->premium_type;
+        $vahicle->fin_premiumamount =$request->premium_amount;
+        $vahicle->fin_premiumdate=$request->premium_date;
+        $vahicle->driverid=$request->driverid;
+        $vahicle->vehicle_status=1;
+        $vahicle->save();
+        return view('add_vehicle');
     }
 
     /**
