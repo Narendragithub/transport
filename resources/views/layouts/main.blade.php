@@ -605,7 +605,22 @@
     }
 
     $('.datepicker').datepicker({
-      autoclose: true
+      autoclose: true,
+    });
+
+    $(document).on('click','.treeview',function(){
+
+        $('.sidebar-menu').each(function(){
+
+           $(this).find('li').each(function(){
+
+                $(this).removeClass('active');
+           });
+
+        });
+
+        $(this).addClass('active');
+        
     });
 </script>
 
