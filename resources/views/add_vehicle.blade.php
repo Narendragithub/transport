@@ -126,7 +126,14 @@
                 <div class="form-group @if ($errors->has('premium_type')) has-error @endif">
                   <label for="inputpremium" class="col-sm-4 control-label">Premium Type</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="inputPremiumtype" placeholder="Premium Type" name="premium_type" value="{{ Input::old('premium_type') }}">
+                   <!--  <input type="text" class="form-control" id="inputPremiumtype" placeholder="Premium Type" name="premium_type" value="{{ Input::old('premium_type') }}"> -->
+                   <select class="form-control" id="inputPremiumtype" name="premium_type" onchange="">
+                      <option value="">Select Type</option>
+                      <option value="Monthly">Monthly</option>  
+                      <option value="Quaterly">Quaterly (3 month)</option> 
+                      <option value="Halfyearly">Halfyearly (6 month)</option> 
+                      <option value="Yearly">Yearly (1 Yearly)</option> 
+                    </select>
                     @if ($errors->has('premium_type')) <p class="help-block">{{ $errors->first('premium_type') }}</p> @endif
                   </div>
                 </div>

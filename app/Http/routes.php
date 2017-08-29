@@ -35,6 +35,7 @@ Route::get('/vehicles', 'VehicleController@index');
 Route::get('/addvehicle', 'VehicleController@create');
 Route::post('/addvehicle', 'VehicleController@store');
 Route::get('/vehicle/edit/{id}', 'VehicleController@edit');
+Route::post('/vehicle/update', 'VehicleController@update');
 Route::get('/vehicle/view/{id}', 'VehicleController@show');
 Route::get('/vehicle/delete/{id}', 'VehicleController@destroy');
 
@@ -42,3 +43,7 @@ Route::get('/drivers', 'DriverController@index');
 Route::get('/adddriver', 'DriverController@create');
 Route::post('/adddriver', 'DriverController@store');
 Route::post('/getDriver', 'DriverController@getDriver');
+Route::get('/driver/edit/{id}','DriverController@edit');
+Route::post('/driver/update', 'DriverController@update');
+Route::get('/driver/view/{id}', 'DriverController@show');
+Route::get('/driver/delete/{id}', 'DriverController@destroy');

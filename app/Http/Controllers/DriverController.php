@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use App\Driver;
 
 class DriverController extends Controller
@@ -17,6 +21,7 @@ class DriverController extends Controller
      */
     public function index()
     {
+      $data['drivers'] = Driver::all();
       return response()->view('driver_list', $data);
     }
 
@@ -38,12 +43,33 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        $driver= new Driver;
-        $driver->drivername=$request->drivername;
-        $driver->phone=$request->driverphone;
-        $driver->address=$request->driveraddress;
-        $driver->save();
-        return view('add_driver');
+        $rules = array(
+            'drivername' => 'required',                        
+            'driverphone'   => 'required',     
+            'driversalary'   => 'required',
+            'driveraddress'   => 'required',
+          
+        );
+
+        
+        $validator = Validator::make(Input::all(), $rules);
+        if($validator->fails()) 
+        {
+            $messages = $validator->messages();
+            return Redirect::to('adddriver')->withErrors($validator)->withInput(Input::all());
+
+        }
+        else
+        {
+            $driver= new Driver;
+            $driver->drivername=$request->drivername;
+            $driver->phone=$request->driverphone;
+            $driver->address=$request->driveraddress;
+            $driver->salary=$request->driversalary;
+            $driver->save();
+            \Session::flash('message', 'Your Driver has been created successfully.');
+            return redirect(url('drivers'));
+        }
     }
 
     /**
@@ -54,7 +80,8 @@ class DriverController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['driver'] = Driver::find($id);
+        return response()->view('view_driver', $data);
     }
 
     /**
@@ -65,7 +92,8 @@ class DriverController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['driver'] = Driver::find($id);
+        return response()->view('edit_driver', $data);
     }
 
     /**
@@ -75,9 +103,35 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $rules = array(
+            'drivername' => 'required',                        
+            'driverphone'   => 'required',     
+            'driversalary'   => 'required',
+            'driveraddress'   => 'required',
+          
+        );
+
+        
+        $validator = Validator::make(Input::all(), $rules);
+        if($validator->fails()) 
+        {
+            $messages = $validator->messages();
+            return Redirect::to('/driver/edit/'.$request->id)->withErrors($validator)->withInput(Input::all());
+
+        }
+        else
+        {
+            $driver= Driver::find($request->id);
+            $driver->drivername=$request->drivername;
+            $driver->phone=$request->driverphone;
+            $driver->address=$request->driveraddress;
+            $driver->salary=$request->driversalary;
+            $driver->save();
+            \Session::flash('message', 'Your Driver has been updated successfully.');
+            return redirect(url('drivers'));
+        }
     }
 
     /**
@@ -88,7 +142,10 @@ class DriverController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        $driver->delete();
+        \Session::flash('message', 'Your Driver has been deleted successfully.');
+        return redirect(url('drivers'));
     }
 
     public function getDriver(Request $request)
