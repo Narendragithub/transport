@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Vehicle;
 use App\Driver;
+use App\Fuel;
 
 class VehicleController extends Controller
 {
@@ -235,4 +236,74 @@ class VehicleController extends Controller
         return redirect(url('vehicles'));
         
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function fuel()
+    {
+        $data['fuels'] = Fuel::all();
+        return response()->view('fuel_list', $data);
+        
+    }
+
+    public function addfuel()
+    {
+         $data['vehicles'] = Vehicle::all();
+        return response()->view('add_fuel',$data);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storefuel(Request $request)
+    {
+        $rules = array(
+            'vehicleno' => 'required',                        
+            'fuelquantity'   => 'required',     
+            'fuelamount'   => 'required', 
+            'date' => 'required',
+            'billno' => 'required'
+        );
+
+        
+        $validator = Validator::make(Input::all(), $rules);
+        if($validator->fails()) 
+        {
+            $messages = $validator->messages();
+            return Redirect::to('/vehicle/addfuel')->withErrors($validator)->withInput(Input::all());
+
+        }else{
+            
+                $fuel= new Fuel;
+                $fuel->vehicleno=$request->vehicleno;
+                $fuel->fuelquantity=$request->fuelquantity;
+                $fuel->fuelamount=$request->fuelamount;
+                $fuel->date=$request->date;
+                $fuel->billno=$request->billno;
+                $fuel->save();
+                \Session::flash('message', 'Your fuel has been created successfully.');
+                return redirect(url('/vehicle/fuel'));
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editfuel($id)
+    {
+        $fuel=Fuel::find($id);
+        $data['vehicle'] = Vehicle::find($fuel->vehicleno);
+        return response()->view('edit_fuel', $data);
+    }
+
+
 }

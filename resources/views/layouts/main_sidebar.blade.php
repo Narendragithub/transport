@@ -36,6 +36,9 @@
           <ul class="treeview-menu">
             <li class="active"><a href="{{ url('/vehicles') }}"><i class="fa fa-list"></i>Vehicle List</a></li>
             <li><a href="{{ url('/addvehicle') }}"><i class="fa fa-plus"></i> Add New</a></li>
+            <li><a href="{{ url('/vehicle/fuel') }}"><i class="fa fa-shower"></i>Fuel Managment</a></li>
+            <li><a href="{{ url('/vehicle/fuel') }}"><i class="fa fa-wrench"></i>Service & Repairing</a></li>
+          
           </ul>
         </li>
         <li class="treeview">
@@ -58,8 +61,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="index.html"><i class="fa fa-list"></i>Client List</a></li>
-            <li><a href="index2.html"><i class="fa fa-plus"></i> Add New</a></li>
+            <li class="active"><a href="{{ url('/clients') }}"><i class="fa fa-list"></i>Client List</a></li>
+            <li><a href="{{ url('/addclient') }}"><i class="fa fa-plus"></i> Add New</a></li>
           </ul>
         </li>
         <li class="treeview">

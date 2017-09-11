@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Driver Details
+        Client Details
         <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
@@ -24,26 +24,26 @@
         	<!-- /.box -->
           <div class="box box-danger">
             <div class="box-header with-border">
-              <h3 class="box-title">Driver Details</h3>
+              <h3 class="box-title">Client Details</h3>
             </div>
             <div class="box-body">
                <table class="table table-bordered">
                   <tbody>
                     <tr>
-                      <th >Driver Name</th>
-                      <td>{{$driver->drivername}}</td>
+                      <th >client Name</th>
+                      <td>{{$client->clientname}}</td>
                     </tr>
                     <tr>
-                      <th >Driver PhoneNo.</th>
-                      <td>{{$driver->phone}}</td>
+                      <th >client PhoneNo.</th>
+                      <td>{{$client->clientphone}}</td>
                     </tr>
                     <tr>
-                      <th >Salary</th>
-                      <td>{{$driver->salary}}</td>
+                      <th >email</th>
+                      <td>{{$client->email}}</td>
                     </tr>
                     <tr>
                       <th >Address</th>
-                      <td>{{$driver->address}}</td>
+                      <td>{{$client->address}}</td>
                     </tr>
                     
                   </tbody>
