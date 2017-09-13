@@ -38,11 +38,26 @@ Route::get('/vehicle/edit/{id}', 'VehicleController@edit');
 Route::post('/vehicle/update', 'VehicleController@update');
 Route::get('/vehicle/view/{id}', 'VehicleController@show');
 Route::get('/vehicle/delete/{id}', 'VehicleController@destroy');
+
+//Fuel Managment
 Route::get('/vehicle/fuel', 'VehicleController@fuel');
 Route::get('/vehicle/addfuel', 'VehicleController@addfuel');
 Route::post('/vehicle/addfuel', 'VehicleController@storefuel');
 Route::get('/vehicle/editfuel/{id}', 'VehicleController@editfuel');
 Route::post('/vehicle/updatefuel', 'VehicleController@updatefuel');
+Route::get('/vehicle/fuelview/{id}', 'VehicleController@showfuel');
+Route::get('/vehicle/fueldelete/{id}', 'VehicleController@fueldestroy');
+
+//Servicing and Repairing
+Route::get('/vehicle/servicing', 'VehicleController@servicing');
+Route::get('/vehicle/addservicing', 'VehicleController@addservicing');
+Route::post('/vehicle/addservicing', 'VehicleController@storeservicing');
+Route::get('/vehicle/editservicing/{id}', 'VehicleController@editservicing');
+Route::post('/vehicle/updateservicing', 'VehicleController@updateservicing');
+Route::get('/vehicle/servicingview/{id}', 'VehicleController@showservicing');
+Route::get('/vehicle/servicingdelete/{id}', 'VehicleController@servicingdestroy');
+
+
 
 Route::get('/drivers', 'DriverController@index');
 Route::get('/adddriver', 'DriverController@create');

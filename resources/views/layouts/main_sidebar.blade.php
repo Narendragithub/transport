@@ -35,9 +35,9 @@
           </a>
           <ul class="treeview-menu">
             <li class="active"><a href="{{ url('/vehicles') }}"><i class="fa fa-list"></i>Vehicle List</a></li>
-            <li><a href="{{ url('/addvehicle') }}"><i class="fa fa-plus"></i> Add New</a></li>
+            <li><a href="{{ url('/addvehicle') }}"><i class="fa fa-plus"></i> Add Vahicle</a></li>
             <li><a href="{{ url('/vehicle/fuel') }}"><i class="fa fa-shower"></i>Fuel Managment</a></li>
-            <li><a href="{{ url('/vehicle/fuel') }}"><i class="fa fa-wrench"></i>Service & Repairing</a></li>
+            <li><a href="{{ url('/vehicle/servicing') }}"><i class="fa fa-wrench"></i>Service & Repairing</a></li>
           
           </ul>
         </li>

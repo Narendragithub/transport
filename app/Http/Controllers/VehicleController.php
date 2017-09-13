@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Vehicle;
 use App\Driver;
 use App\Fuel;
+use App\Servicing;
 
 class VehicleController extends Controller
 {
@@ -251,7 +252,7 @@ class VehicleController extends Controller
 
     public function addfuel()
     {
-         $data['vehicles'] = Vehicle::all();
+        $data['vehicles'] = Vehicle::all();
         return response()->view('add_fuel',$data);
     }
 
@@ -265,8 +266,8 @@ class VehicleController extends Controller
     {
         $rules = array(
             'vehicleno' => 'required',                        
-            'fuelquantity'   => 'required',     
-            'fuelamount'   => 'required', 
+            'fuelquantity'   => 'required|integer',     
+            'fuelamount'   => 'required|integer', 
             'date' => 'required',
             'billno' => 'required'
         );
@@ -300,10 +301,252 @@ class VehicleController extends Controller
      */
     public function editfuel($id)
     {
-        $fuel=Fuel::find($id);
-        $data['vehicle'] = Vehicle::find($fuel->vehicleno);
+        $data['fuel']=Fuel::find($id);
+        $data['vehicles'] = Vehicle::all();
         return response()->view('edit_fuel', $data);
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updatefuel(Request $request)
+    {
+        $rules = array(
+            'vehicleno' => 'required',                        
+            'fuelquantity'   => 'required|integer',     
+            'fuelamount'   => 'required|integer', 
+            'date' => 'required',
+            'billno' => 'required'
+        );
+
+        
+        $validator = Validator::make(Input::all(), $rules);
+        if($validator->fails()) 
+        {
+            $messages = $validator->messages();
+            return Redirect::to('/vehicle/editfuel')->withErrors($validator)->withInput(Input::all());
+
+        }else{
+            
+            $fuel= Fuel::find($request->id);
+            $fuel->vehicleno=$request->vehicleno;
+            $fuel->fuelquantity=$request->fuelquantity;
+            $fuel->fuelamount=$request->fuelamount;
+            $fuel->date=$request->date;
+            $fuel->billno=$request->billno;
+            $fuel->save();
+            \Session::flash('message', 'Your fuel has been updated successfully.');
+            return redirect(url('/vehicle/fuel'));
+        }
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response\Session::flash('message', 'Your project has been created successfully.');
+     */
+    public function showfuel($id)
+    {
+        $data['fuel']=Fuel::find($id);
+        return response()->view('view_fuel', $data);
+        
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function fueldestroy($id)
+    {
+        $fuel = Fuel::findOrFail($id);
+        $fuel->delete();
+        \Session::flash('message', 'Your fuel has been deleted successfully.');
+        return redirect(url('fuel'));
+        
+    }
+
+    //Servicing and Repairing
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function servicing()
+    {
+        $data['servicings'] = Servicing::all();
+        return response()->view('servicing_list', $data);
+        
+    }
+
+    public function addservicing()
+    {
+        $data['vehicles'] = Vehicle::all();
+        return response()->view('add_servicing',$data);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeservicing(Request $request)
+    {
+        $rules = array(
+            'vehicleno' => 'required',                        
+            'autopart_name'   => 'required',     
+            'autopart_contactno'   => 'required|integer', 
+            'city' => 'required',
+            'oil_change' => 'required',
+            'oil_amount' => 'required',
+            'change_parts' => 'required',
+            'change_parts_name' => 'required',
+            'parts_amount' => 'required',
+            'bill_no' => 'required',
+            'bill_amount' => 'required',
+            'paid_amount' => 'required',
+            'remaining_amount' => 'required',
+            'servicing_date' => 'required'
+
+        );
+
+        
+        $validator = Validator::make(Input::all(), $rules);
+        if($validator->fails()) 
+        {
+            $messages = $validator->messages();
+            return Redirect::to('/vehicle/addservicing')->withErrors($validator)->withInput(Input::all());
+
+        }else{
+            
+                $servicing= new Servicing;
+                $servicing->vehicleno=$request->vehicleno;
+                $servicing->autopart_name=$request->autopart_name;
+                $servicing->autopart_contactno=$request->autopart_contactno;
+                $servicing->city=$request->city;
+                $servicing->oil_change=$request->oil_change;
+                $servicing->oil_amount=$request->oil_amount;
+                $servicing->change_parts=$request->change_parts;
+                $servicing->change_parts_name=$request->change_parts_name;
+                $servicing->parts_amount=$request->parts_amount;
+                $servicing->bill_no=$request->bill_no;
+                $servicing->bill_amount=$request->bill_amount;
+                $servicing->paid_amount=$request->paid_amount;
+                $servicing->remaining_amount=$request->remaining_amount;
+                $servicing->servicing_date=$request->servicing_date;
+                $servicing->save();
+                \Session::flash('message', 'Your servicing has been created successfully.');
+                return redirect(url('/vehicle/servicing'));
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editservicing($id)
+    {
+        $data['servicing']=Servicing::find($id);
+        $data['vehicles'] = Vehicle::all();
+        return response()->view('edit_servicing', $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateservicing(Request $request)
+    {
+        $rules = array(
+            'vehicleno' => 'required',                        
+            'autopart_name'   => 'required',     
+            'autopart_contactno'   => 'required|integer', 
+            'city' => 'required',
+            'oil_change' => 'required',
+            'oil_amount' => 'required',
+            'change_parts' => 'required',
+            'change_parts_name' => 'required',
+            'parts_amount' => 'required',
+            'bill_no' => 'required',
+            'bill_amount' => 'required',
+            'paid_amount' => 'required',
+            'remaining_amount' => 'required',
+            'servicing_date' => 'required'
+        );
+
+        
+        $validator = Validator::make(Input::all(), $rules);
+        if($validator->fails()) 
+        {
+            $messages = $validator->messages();
+            return Redirect::to('/vehicle/editservicing')->withErrors($validator)->withInput(Input::all());
+
+        }else{
+            
+            $servicing= Servicing::find($request->id);
+            $servicing->vehicleno=$request->vehicleno;
+            $servicing->autopart_name=$request->autopart_name;
+            $servicing->autopart_contactno=$request->autopart_contactno;
+            $servicing->city=$request->city;
+            $servicing->oil_change=$request->oil_change;
+            $servicing->oil_amount=$request->oil_amount;
+            $servicing->change_parts=$request->change_parts;
+            $servicing->change_parts_name=$request->change_parts_name;
+            $servicing->parts_amount=$request->parts_amount;
+            $servicing->bill_no=$request->bill_no;
+            $servicing->bill_amount=$request->bill_amount;
+            $servicing->paid_amount=$request->paid_amount;
+            $servicing->remaining_amount=$request->remaining_amount;
+            $servicing->servicing_date=$request->servicing_date;
+            $servicing->save();
+            \Session::flash('message', 'Your servicing has been updated successfully.');
+            return redirect(url('/vehicle/servicing'));
+        }
+
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response\Session::flash('message', 'Your project has been created successfully.');
+     */
+    public function showservicing($id)
+    {
+        $data['servicing']=Servicing::find($id);
+        return response()->view('view_servicing', $data);
+        
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function servicingdestroy($id)
+    {
+        $servicing = Servicing::findOrFail($id);
+        $servicing->delete();
+        \Session::flash('message', 'Your servicing has been deleted successfully.');
+        return redirect(url('servicing'));
+        
+    }
+
 
 
 }

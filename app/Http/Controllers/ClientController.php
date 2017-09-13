@@ -21,7 +21,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $data['clients'] = Client::all();
+      $data['clients'] = Client::all();
       return response()->view('client_list', $data);
         
     }
@@ -46,8 +46,8 @@ class ClientController extends Controller
     {
         $rules = array(
             'clientname' => 'required',                        
-            'clientphone'   => 'required',     
-            'clientemail'   => 'required',
+            'clientphone'   => 'required|integer',     
+            'clientemail'   => 'required|email',
             'clientaddress'   => 'required',
           
         );
@@ -108,8 +108,8 @@ class ClientController extends Controller
     {
         $rules = array(
             'clientname' => 'required',                        
-            'clientphone'   => 'required',     
-            'clientemail'   => 'required',
+            'clientphone'   => 'required|integer',     
+            'clientemail'   => 'required|email',
             'clientaddress'   => 'required',
           
         );

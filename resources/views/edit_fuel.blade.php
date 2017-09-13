@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Add Fuel Form
+        Edit Fuel Form
         <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
@@ -16,8 +16,9 @@
     </section>
 
     <!-- Main content -->
-    <form class="form-horizontal" method="post" action="/vehicle/addfuel"> 
+    <form class="form-horizontal" method="post" action="/vehicle/updatefuel"> 
     {!! csrf_field() !!}
+     <input type="hidden" name="id" value="{{$fuel->id}}">
     <section class="content">
       <div class="row">
         <!-- left column -->
@@ -38,9 +39,9 @@
         
                     <select class="form-control" id="inputvehicleno" name="vehicleno">
                       <option value="">Vehicle No.</option>
-                      @foreach($vehicles as $vehicle)
-                      <option value="{{ $vehicle->id }}">{{ $vehicle->vehiclename.'-('.$vehicle->vehicleno.')' }}</option>
-                      @endforeach
+                        @foreach($vehicles as $vehicle)
+                          <option value="{{ $vehicle->id }}" <?php if($vehicle->id==$fuel->vehicleno){ echo "selected='selected'";} ?>>{{ $vehicle->vehiclename.'-('.$vehicle->vehicleno.')' }}</option>
+                        @endforeach
                     </select>
                     @if ($errors->has('vehicleno')) <p class="help-block">{{ $errors->first('vehicle') }}</p> @endif
                   </div>
@@ -49,7 +50,7 @@
                 <div class="form-group @if ($errors->has('fuelquantity')) has-error @endif">
                   <label for="inputfuelquantity" class="col-sm-4 control-label">Fuel Quantity(in Ltr.)</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="inputfuelquantity" placeholder="Fuel quantity" name="fuelquantity" value="{{ Input::old('fuelquantity') }}">
+                    <input type="text" class="form-control" id="inputfuelquantity" placeholder="Fuel quantity" name="fuelquantity" value="{{$fuel->fuelquantity}}">
                     @if ($errors->has('fuelquantity')) <p class="help-block">{{ $errors->first('fuelquantity') }}</p> @endif
                   </div>
                 </div>
@@ -57,7 +58,7 @@
                 <div class="form-group @if ($errors->has('fuelamount')) has-error @endif">
                   <label for="inputfuelamount" class="col-sm-4 control-label">Bill Amount</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" id="inputfuelamount" placeholder="Fuel Amount" name="fuelamount" value="{{ Input::old('fuelamount') }}">
+                    <input type="text" class="form-control" id="inputfuelamount" placeholder="Fuel Amount" name="fuelamount" value="{{$fuel->fuelamount}}">
                     @if ($errors->has('fuelamount')) <p class="help-block">{{ $errors->first('fuelamount') }}</p> @endif
                   </div>
                 </div>
@@ -65,7 +66,7 @@
                 <div class="form-group date @if ($errors->has('date')) has-error @endif">
                   <label for="inputdate" class="col-sm-4 control-label">Bill Date</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control datepicker" id="inputdate" placeholder="date" name="date" value="{{ Input::old('date') }}">
+                    <input type="text" class="form-control datepicker" id="inputdate" placeholder="date" name="date" value="{{$fuel->date}}">
                     @if ($errors->has('date')) <p class="help-block">{{ $errors->first('date') }}</p> @endif
                   </div>
                 </div>
@@ -73,7 +74,7 @@
                 <div class="form-group @if ($errors->has('billno')) has-error @endif">
                   <label for="inputbillno" class="col-sm-4 control-label">Bill no./Recept no.</label>
                   <div class="col-sm-8">
-                    <input class="form-control" id="inputbillno" placeholder="Bill no./Recept no." name="billno" value="{{ Input::old('billno') }}"> 
+                    <input class="form-control" id="inputbillno" placeholder="Bill no./Recept no." name="billno" value="{{$fuel->billno}}"> 
                     @if ($errors->has('billno')) <p class="help-block">{{ $errors->first('billno') }}</p> @endif
                   </div>
                 </div>
