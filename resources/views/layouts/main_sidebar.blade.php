@@ -38,7 +38,6 @@
             <li><a href="{{ url('/addvehicle') }}"><i class="fa fa-plus"></i> Add Vahicle</a></li>
             <li><a href="{{ url('/vehicle/fuel') }}"><i class="fa fa-shower"></i>Fuel Managment</a></li>
             <li><a href="{{ url('/vehicle/servicing') }}"><i class="fa fa-wrench"></i>Service & Repairing</a></li>
-          
           </ul>
         </li>
         <li class="treeview">
@@ -68,19 +67,19 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
-            <span>Layout Options</span>
+            <span>Generate Invoice</span>
             <span class="pull-right-container">
               <span class="label label-primary pull-right">4</span>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+            <li><a href="{{ url('/invoices') }}"><i class="fa fa-circle-o"></i> Invoices</a></li>
+            <li><a href="{{ url('/createinvoice') }}"><i class="fa fa-circle-o"></i> Add Invoice</a></li>
+            <!-- <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li> -->
           </ul>
         </li>
-        <li>
+        <!-- <li>
           <a href="pages/widgets.html">
             <i class="fa fa-th"></i> <span>Widgets</span>
             <span class="pull-right-container">
@@ -153,7 +152,7 @@
               <small class="label pull-right bg-blue">17</small>
             </span>
           </a>
-        </li>
+        </li> -->
         <li>
           <a href="pages/mailbox/mailbox.html">
             <i class="fa fa-envelope"></i> <span>Mailbox</span>
@@ -164,7 +163,7 @@
             </span>
           </a>
         </li>
-        <li class="treeview">
+        <!-- <li class="treeview">
           <a href="#">
             <i class="fa fa-folder"></i> <span>Examples</span>
             <span class="pull-right-container">
@@ -220,8 +219,8 @@
         <li class="header">LABELS</li>
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-      </ul>
+        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>-->
+      </ul> 
     </section>
     <!-- /.sidebar -->
   </aside>

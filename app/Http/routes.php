@@ -38,6 +38,7 @@ Route::get('/vehicle/edit/{id}', 'VehicleController@edit');
 Route::post('/vehicle/update', 'VehicleController@update');
 Route::get('/vehicle/view/{id}', 'VehicleController@show');
 Route::get('/vehicle/delete/{id}', 'VehicleController@destroy');
+Route::get('/getVehicles', 'VehicleController@getVehicles');
 
 //Fuel Managment
 Route::get('/vehicle/fuel', 'VehicleController@fuel');
@@ -58,7 +59,7 @@ Route::get('/vehicle/servicingview/{id}', 'VehicleController@showservicing');
 Route::get('/vehicle/servicingdelete/{id}', 'VehicleController@servicingdestroy');
 
 
-
+//Drivers
 Route::get('/drivers', 'DriverController@index');
 Route::get('/adddriver', 'DriverController@create');
 Route::post('/adddriver', 'DriverController@store');
@@ -68,11 +69,14 @@ Route::post('/driver/update', 'DriverController@update');
 Route::get('/driver/view/{id}', 'DriverController@show');
 Route::get('/driver/delete/{id}', 'DriverController@destroy');
 
+//Clients
 Route::get('/clients', 'ClientController@index');
 Route::get('/addclient', 'ClientController@create');
 Route::post('/addclient', 'ClientController@store');
-Route::post('/getClient', 'ClientController@getDriver');
 Route::get('/client/edit/{id}','ClientController@edit');
 Route::post('/client/update', 'ClientController@update');
 Route::get('/client/view/{id}', 'ClientController@show');
 Route::get('/client/delete/{id}', 'ClientController@destroy');
+Route::get('/clients/invoices', 'ClientController@invoices');
+Route::get('/createinvoice', 'ClientController@createinvoice');
+Route::post('/createinvoice', 'ClientController@storeinvoice');

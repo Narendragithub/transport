@@ -11,6 +11,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Client;
+use App\Vehicle;
 
 class ClientController extends Controller
 {
@@ -147,5 +148,53 @@ class ClientController extends Controller
         $client->delete();
         \Session::flash('message', 'Your Client has been deleted successfully.');
         return redirect(url('clients'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createinvoice()
+    {
+        $data['vehicles'] = Vehicle::all();
+        return response()->view('add_invoice', $data);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeinvoice(Request $request)
+    {
+        $rules = array(
+            'clientname' => 'required',                        
+            'clientphone'   => 'required|integer',     
+            'clientemail'   => 'required|email',
+            'clientaddress'   => 'required',
+          
+        );
+
+        
+        $validator = Validator::make(Input::all(), $rules);
+        if($validator->fails()) 
+        {
+            $messages = $validator->messages();
+            return Redirect::to('addclient')->withErrors($validator)->withInput(Input::all());
+
+        }
+        else
+        {
+            $client= new Client;
+            $client->clientname=$request->clientname;
+            $client->clientphone=$request->clientphone;
+            $client->email=$request->clientemail;
+            $client->address=$request->clientaddress;
+            $client->save();
+            \Session::flash('message', 'Your client has been created successfully.');
+            return redirect(url('clients'));
+        }
     }
 }

@@ -622,7 +622,93 @@
         $(this).addClass('active');
         
     });
-</script>
 
+    $(document).on('blur','.ratepertrip',function(){
+
+      var data=$(this).attr('data');
+      var quantity=$("#quantity"+data).val();
+      var ratepertrip=$("#ratepertrip"+data).val();
+      var total=quantity * ratepertrip;
+      $("#triptotal"+data).val(total);
+      var subtotal=0;
+      $(".triptotal").each(function(){
+
+          subtotal= parseInt(subtotal) + parseInt($(this).val());
+      });
+
+      $("#subtotal").html(subtotal);
+  
+      var total=parseInt(subtotal) + parseInt($("#tax").html()) + parseInt($("#shipping").html());
+      $("#total").html(total);
+
+       
+    });
+
+
+    $(document).on('click','.addrow',function(){
+
+          var rowid=$("#row_counter").val();
+          rowid=parseInt(rowid) + 1;
+          var selectbox='<select class="form-control vahicleid" id="vahicleid'+rowid+'" data="'+rowid+'" name="vahicleid[]">';
+          selectbox +='<option value="">Select Vahicle</option>';
+          $.ajax({
+           url: '/getVehicles',
+           dataType: 'json',
+           type: 'GET',
+           data:{},
+           error: function() {
+              
+           },
+           success: function(data) 
+           {
+              if(data['vehicles'])
+              {
+                $.each(data['vehicles'], function( index, value ) {
+                  selectbox +='<option value="'+value['id']+'">'+value['vehiclename']+'-('+value['vehicleno']+')'+'</option>';
+                });
+                
+              }
+              else
+              {
+                selectbox +='<option value="">No Vahicle available!</option>';
+              }
+
+              var tr='<tr class="tr_clone">';
+              tr +='<td>'+selectbox+'</td>';
+              tr +='<td><input type="text" class="form-control datepicker date" data="'+rowid+'" id="date'+rowid+'" placeholder="Trip Date" name="date[]" value=""></td>';
+              tr +='<td><input type="text" class="form-control quatity" data="'+rowid+'"  id="quantity'+rowid+'" placeholder="Trip Quantity" name="quantity[]" value=""></td>';
+              tr +='<td><input type="text" class="form-control ratepertrip" data="'+rowid+'" id="ratepertrip'+rowid+'" placeholder="Rate Per Trip" name="ratepertrip[]" value=""></td>';
+              tr +='<td><input type="text" class="form-control triptotal" data="'+rowid+'" id="triptotal'+rowid+'" placeholder="Total" name="total[]" value=""></td>';
+              tr +='<td><input type="button" class="btn btn-danger removerow" data="'+rowid+'" id="" name="" value="Remove"></td>';
+              tr +='</tr>';
+
+              $("#invoice_table").append(tr);
+              $("#row_counter").val(rowid);
+              
+           }
+            
+           
+        });
+    });
+
+
+    $(document).on('click','.removerow',function(){
+
+        $(this).parent().parent().remove();
+        var rowid=$("#row_counter").val();
+        rowid=parseInt(rowid) - 1;
+        $("#row_counter").val(rowid);
+
+        var subtotal=0;
+        $(".triptotal").each(function(){
+            subtotal= parseInt(subtotal) + parseInt($(this).val());
+        });
+
+        $("#subtotal").html(subtotal);
+        var total=parseInt(subtotal) + parseInt($("#tax").html()) + parseInt($("#shipping").html());
+        $("#total").html(total);  
+    });
+
+</script>
 </body>
 </html>

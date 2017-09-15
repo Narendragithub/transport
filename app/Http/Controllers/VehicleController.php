@@ -547,6 +547,12 @@ class VehicleController extends Controller
         
     }
 
+    public function getVehicles()
+    {
+
+         $data['vehicles'] = Vehicle::all();
+        return response()->json($data);
+    }
 
 
 }
