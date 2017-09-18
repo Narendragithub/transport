@@ -29,7 +29,7 @@
       <div class="row">
         <div class="col-xs-12">
           <h2 class="page-header">
-            <i class="fa fa-globe"></i> RajputTransport, Inc.
+            <i class="fa fa-globe"></i> RajputAutoparts, Inc.
             <small class="pull-right">Date: <?php echo date('d-m-Y') ?></small>
           </h2>
         </div>
@@ -40,7 +40,7 @@
         <div class="col-sm-4 invoice-col">
           From
           <address>
-            <strong>RajputTransport, Inc.</strong><br>
+            <strong>RajputAutoparts, Inc.</strong><br>
             AB Road Pachore, Pachore 465683<br>
             Dest. Rajgarh, (MP)<br>
             Phone: (07371) 123-5432<br>
@@ -48,28 +48,61 @@
           </address>
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
+        <div class="col-sm-6 invoice-col">
           To
-          <address>
-            <strong>John Doe</strong><br>
-            795 Folsom Ave, Suite 600<br>
-            San Francisco, CA 94107<br>
-            Phone: (555) 539-1037<br>
-            Email: john.doe@example.com
-          </address>
+         <address>
+           {!! csrf_field() !!}
+             <div class="col-sm-5">
+                 <!-- select -->
+                <div class="form-group">
+                  <label>Client Name</label>
+                  <select class="form-control" name="clientid" id="clientid" onchange="getClientDetails()" required>
+                    <option value="">Select Client</option>
+                    @foreach($clients as $client)
+                     <option value="{{ $client->id }}">{{$client->clientname}}</option>
+                    @endforeach
+                  </select>
+                </div>
+    
+                <!-- text input -->
+                <div class="form-group">
+                  <label>Client Phone</label>
+                  <input class="form-control" placeholder="Client Phone no." type="text" name="clientphone" id="clientphone" required>
+                </div>
+              </div>
+              <div class="col-sm-1">
+               <label></label>
+                <label>OR</label>
+              </div>
+              <div class="col-sm-5">
+                <!-- text input -->
+                <div class="form-group">
+                   <label>Client Name</label>
+                  <input class="form-control" placeholder="Client Name" type="text" name="clientname" id="clientname" >
+                </div>
+                  <!-- text input -->
+                <div class="form-group">
+                  <label>Client Email</label>
+                  <input class="form-control" placeholder="Client Email" type="text" name="clientemail" id="clientemail" required>
+                </div>
+              </div>
+             
+            </address> 
         </div>
         <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-          <b>Invoice #007612</b><br>
-          <br>
-          <b>Order ID:</b> 4F3S8J<br>
-          <b>Payment Due:</b> 2/22/2014<br>
-          <b>Account:</b> 968-34567
+        <div class="col-sm-2 invoice-col">
+            <label></label>
+            <label></label>
+           <!-- textarea -->
+              <div class="form-group">
+                <label>Client Address</label>
+                  <textarea class="form-control" rows="4" placeholder="Client Address" name="clientaddress" id="clientaddress" required></textarea>
+              </div>
         </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->
-
+     
       <!-- Table row -->
       <div class="row">
         <div class="col-xs-12 table-responsive">
@@ -98,7 +131,7 @@
               <td><input type="text" class="form-control datepicker date" data="0" id="date0" placeholder="Trip Date" name="date[]" value=""></td>
               <td><input type="text" class="form-control quatity" data="0"  id="quantity0" placeholder="Trip Quantity" name="quantity[]" value=""></td>
               <td><input type="text" class="form-control ratepertrip" data="0" id="ratepertrip0" placeholder="Rate Per Trip" name="ratepertrip[]" value=""></td>
-              <td><input type="text" class="form-control triptotal" data="0" id="triptotal0" placeholder="Total" name="total[]" value=""></td>
+              <td><input type="text" class="form-control triptotal" data="0" id="triptotal0" placeholder="Total" name="total[]" value="" readonly="readonly"></td>
               <td><input type="button" class="btn btn-primary addrow" data="0" id="" name="" value="Add Row"></td>
             </tr>
             </tbody>
@@ -107,7 +140,6 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-
       <div class="row">
         <!-- accepted payments column -->
         <div class="col-xs-6">
@@ -154,9 +186,9 @@
       <div class="row no-print">
         <div class="col-xs-12">
           <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment
+          <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Invoice
           </button>
-          <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+          <button type="submit" class="btn btn-primary pull-right" style="margin-right: 5px;">
             <i class="fa fa-download"></i> Generate PDF
           </button>
         </div>

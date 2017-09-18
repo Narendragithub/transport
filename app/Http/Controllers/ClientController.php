@@ -20,8 +20,28 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    var $data = null;
+    public function __construct() {
+
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
+    }
+
     public function index()
     {
+
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
       $data['clients'] = Client::all();
       return response()->view('client_list', $data);
         
@@ -34,7 +54,14 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('add_client');
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
+        return view('add_client',$data);
     }
 
     /**
@@ -45,6 +72,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+
         $rules = array(
             'clientname' => 'required',                        
             'clientphone'   => 'required|integer',     
@@ -82,6 +110,13 @@ class ClientController extends Controller
      */
     public function show($id)
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['client'] = Client::find($id);
         return response()->view('view_client', $data);
     }
@@ -94,6 +129,13 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['client'] = Client::find($id);
         return response()->view('edit_client', $data);
     }
@@ -157,7 +199,16 @@ class ClientController extends Controller
      */
     public function createinvoice()
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
+
         $data['vehicles'] = Vehicle::all();
+        $data['clients'] = Client::all();
         return response()->view('add_invoice', $data);
     }
 
@@ -196,5 +247,12 @@ class ClientController extends Controller
             \Session::flash('message', 'Your client has been created successfully.');
             return redirect(url('clients'));
         }
+    }
+
+    public function getClient(Request $request)
+    {
+
+        $data['client'] = Client::find($request->id);
+        return response()->json($data);
     }
 }

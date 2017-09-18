@@ -9,11 +9,25 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    var $data = null;
+
+    public function __construct() {
+
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $this->data['user'] = \Auth::user();
+        }
+    }
+
     public function index()
     {
         return view('layouts/main_content');

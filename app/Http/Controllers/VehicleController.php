@@ -17,13 +17,36 @@ use App\Servicing;
 
 class VehicleController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+    var $data = null;
+
+    public function __construct() {
+
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $this->data['user'] = \Auth::user();
+        }
+    }
+
     public function index()
     {
+
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['vehicles'] = Vehicle::all();
         return response()->view('vehicle_list', $data);
         
@@ -36,6 +59,13 @@ class VehicleController extends Controller
      */
     public function create()
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['drivers'] = Driver::all();
         return response()->view('add_vehicle', $data);
     }
@@ -124,6 +154,13 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $vehicle=Vehicle::find($id);
         $data['vehicle'] = $vehicle;
         $data['driver'] = Driver::find($vehicle->driverid);
@@ -139,6 +176,13 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $vehicle=Vehicle::find($id);
         $data['vehicle'] = $vehicle;
         $data['drivers'] = Driver::all();
@@ -245,6 +289,13 @@ class VehicleController extends Controller
      */
     public function fuel()
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['fuels'] = Fuel::all();
         return response()->view('fuel_list', $data);
         
@@ -252,6 +303,13 @@ class VehicleController extends Controller
 
     public function addfuel()
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['vehicles'] = Vehicle::all();
         return response()->view('add_fuel',$data);
     }
@@ -301,6 +359,13 @@ class VehicleController extends Controller
      */
     public function editfuel($id)
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['fuel']=Fuel::find($id);
         $data['vehicles'] = Vehicle::all();
         return response()->view('edit_fuel', $data);
@@ -353,6 +418,13 @@ class VehicleController extends Controller
      */
     public function showfuel($id)
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['fuel']=Fuel::find($id);
         return response()->view('view_fuel', $data);
         
@@ -382,6 +454,13 @@ class VehicleController extends Controller
      */
     public function servicing()
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['servicings'] = Servicing::all();
         return response()->view('servicing_list', $data);
         
@@ -389,6 +468,13 @@ class VehicleController extends Controller
 
     public function addservicing()
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['vehicles'] = Vehicle::all();
         return response()->view('add_servicing',$data);
     }
@@ -457,6 +543,13 @@ class VehicleController extends Controller
      */
     public function editservicing($id)
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['servicing']=Servicing::find($id);
         $data['vehicles'] = Vehicle::all();
         return response()->view('edit_servicing', $data);
@@ -527,6 +620,13 @@ class VehicleController extends Controller
      */
     public function showservicing($id)
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['servicing']=Servicing::find($id);
         return response()->view('view_servicing', $data);
         

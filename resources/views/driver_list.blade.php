@@ -32,8 +32,8 @@
               <a href="{{ url('/adddriver') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Driver</a>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
+            <div class="box-body table-responsive">
+              <table id="example1" class="table table-bordered table-striped ">
                 <thead>
                 <tr>
                   <th>Driver Name</th>

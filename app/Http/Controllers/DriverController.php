@@ -19,8 +19,28 @@ class DriverController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    var $data = null;
+
+    public function __construct() {
+
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $this->data['user'] = \Auth::user();
+        }
+    }
+
     public function index()
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
       $data['drivers'] = Driver::all();
       return response()->view('driver_list', $data);
     }
@@ -32,7 +52,14 @@ class DriverController extends Controller
      */
     public function create()
     {
-        return view('add_driver');
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
+        return view('add_driver',$data);
     }
 
     /**
@@ -80,6 +107,13 @@ class DriverController extends Controller
      */
     public function show($id)
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['driver'] = Driver::find($id);
         return response()->view('view_driver', $data);
     }
@@ -92,6 +126,13 @@ class DriverController extends Controller
      */
     public function edit($id)
     {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
         $data['driver'] = Driver::find($id);
         return response()->view('edit_driver', $data);
     }

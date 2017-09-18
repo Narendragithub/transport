@@ -80,3 +80,4 @@ Route::get('/client/delete/{id}', 'ClientController@destroy');
 Route::get('/clients/invoices', 'ClientController@invoices');
 Route::get('/createinvoice', 'ClientController@createinvoice');
 Route::post('/createinvoice', 'ClientController@storeinvoice');
+Route::post('/getClient', 'ClientController@getClient');

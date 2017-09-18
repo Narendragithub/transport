@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Rajput Transport | Dashboard</title>
+  <title>Rajput AutoParts | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
    <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -50,7 +50,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>R</b>T</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Rajput</b>Transport</span>
+      <span class="logo-lg"><b>Rajput</b>Autoparts</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -262,7 +262,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">{{$user->name}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -270,8 +270,8 @@
                 <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  {{$user->name}} - Web Developer
+                  <small>Member since  {{date('M, Y',strtotime($user->created_at))}}</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -318,7 +318,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-    <strong>Copyright &copy; 2017-2018 <a href="https://adminlte.io">Rajput Transport</a>.</strong> All rights
+    <strong>Copyright &copy; 2000-{{date('Y')}} <a href="{{url('/home')}}">Rajput Autoparts</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -574,7 +574,7 @@
     });
   });
 
-  function getDriverDetails()
+    function getDriverDetails()
     {
       var _token = $('input[name="_token"]').val();
       $.ajax({
@@ -604,8 +604,13 @@
         });
     }
 
-    $('.datepicker').datepicker({
-      autoclose: true,
+    
+
+    $(document).on('focus',".datepicker", function(){
+        //$(this).datepicker();
+        $(this).datepicker({
+          autoclose: true,
+        });
     });
 
     $(document).on('click','.treeview',function(){
@@ -678,7 +683,7 @@
               tr +='<td><input type="text" class="form-control datepicker date" data="'+rowid+'" id="date'+rowid+'" placeholder="Trip Date" name="date[]" value=""></td>';
               tr +='<td><input type="text" class="form-control quatity" data="'+rowid+'"  id="quantity'+rowid+'" placeholder="Trip Quantity" name="quantity[]" value=""></td>';
               tr +='<td><input type="text" class="form-control ratepertrip" data="'+rowid+'" id="ratepertrip'+rowid+'" placeholder="Rate Per Trip" name="ratepertrip[]" value=""></td>';
-              tr +='<td><input type="text" class="form-control triptotal" data="'+rowid+'" id="triptotal'+rowid+'" placeholder="Total" name="total[]" value=""></td>';
+              tr +='<td><input type="text" class="form-control triptotal" data="'+rowid+'" id="triptotal'+rowid+'" placeholder="Total" name="total[]" value="" readonly="readonly"></td>';
               tr +='<td><input type="button" class="btn btn-danger removerow" data="'+rowid+'" id="" name="" value="Remove"></td>';
               tr +='</tr>';
 
@@ -708,6 +713,48 @@
         var total=parseInt(subtotal) + parseInt($("#tax").html()) + parseInt($("#shipping").html());
         $("#total").html(total);  
     });
+
+    function getClientDetails()
+    {
+      var _token = $('input[name="_token"]').val();
+      $.ajax({
+           url: '/getClient',
+           dataType: 'json',
+           type: 'POST',
+           data:{ _token : _token,id:$("#clientid").val()},
+           error: function() {
+              
+           },
+           success: function(data) 
+           {
+            if(data['client'])
+            {
+              $('input[name="clientname"]').val(data['client']['clientname']);
+              $('input[name="clientname"]').attr('readonly',true);
+              $("#clientphone").val(data['client']['clientphone']);
+              $("#clientphone").attr('readonly',true);
+              $("#clientemail").val(data['client']['email']);
+              $("#clientemail").attr('readonly',true);
+              $("#clientaddress").val(data['client']['address']);
+              $("#clientaddress").attr('readonly',true);
+            }
+            else
+            {
+              $('input[name="clientname"]').val('');
+              $('input[name="clientname"]').attr('readonly',false);
+              $("#clientphone").val('');
+              $("#clientphone").attr('readonly',false);
+              $("#clientemail").val('');
+              $("#clientemail").attr('readonly',false);
+              $("#clientaddress").val('');
+              $("#clientaddress").attr('readonly',false);
+            }
+              
+           }
+            
+           
+        });
+    }
 
 </script>
 </body>

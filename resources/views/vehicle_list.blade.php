@@ -32,7 +32,7 @@
               <a href="{{ url('/addvehicle') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add Vehicle</a>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
