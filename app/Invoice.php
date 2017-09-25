@@ -11,6 +11,6 @@ class Invoice extends Model
      */
     public function invoicetrips()
     {
-        return $this->hasMany('App\Invoicetrip');
+        return $this->hasMany('App\Invoicetrip','invoiceid');
     }
 }

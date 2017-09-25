@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use App\Client;
 use App\Vehicle;
+use App\Invoice;
+use App\Invoicetrip;
 
 class ClientController extends Controller
 {
@@ -192,6 +194,21 @@ class ClientController extends Controller
         return redirect(url('clients'));
     }
 
+    public function invoices()
+    {
+
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
+      $data['invoices'] = Invoice::all();
+      return response()->view('invoices', $data);
+        
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -220,9 +237,13 @@ class ClientController extends Controller
      */
     public function storeinvoice(Request $request)
     {
+        //echo "<pre>";
+       // print_r($_POST);
+       // die();
         $rules = array(
-            'clientname' => 'required',                        
-            'clientphone'   => 'required|integer',     
+            'clientid'=>'required|integer',  
+            'clientname' => 'required',                    
+            'clientphone'   => 'required',     
             'clientemail'   => 'required|email',
             'clientaddress'   => 'required',
           
@@ -233,19 +254,37 @@ class ClientController extends Controller
         if($validator->fails()) 
         {
             $messages = $validator->messages();
-            return Redirect::to('addclient')->withErrors($validator)->withInput(Input::all());
+            return Redirect::to('/createinvoice')->withErrors($validator)->withInput(Input::all());
 
         }
         else
         {
-            $client= new Client;
-            $client->clientname=$request->clientname;
-            $client->clientphone=$request->clientphone;
-            $client->email=$request->clientemail;
-            $client->address=$request->clientaddress;
-            $client->save();
-            \Session::flash('message', 'Your client has been created successfully.');
-            return redirect(url('clients'));
+            $invoice= new Invoice;
+            $invoice->orderid=$request->orderid;
+            $invoice->clientid=$request->clientid;
+            $invoice->clientname=$request->clientname;
+            $invoice->clientphone=$request->clientphone;
+            $invoice->clientemail=$request->clientemail;
+            $invoice->clienteaddress=$request->clientaddress;
+            $invoice->totalamount=$request->totalamount;
+            $invoice->invoicedate=$request->invoicedate;
+            $invoice->save();
+
+            //Invoice trips
+            $invoicetrip = new Invoicetrip;
+            for($i=0;$i<count($request->vahicleid);$i++)
+            {
+               $invoicetrip->invoiceid=$invoice->id;
+               $invoicetrip->vehicleid=$request->vahicleid[$i];
+               $invoicetrip->trip_amount=$request->ratepertrip[$i];
+               $invoicetrip->total_trip=$request->quantity[$i];
+               $invoicetrip->total_trip_amount=$request->total[$i];
+               $invoicetrip->trip_date=$request->date[$i]; 
+               $invoicetrip->save();
+            }
+
+            \Session::flash('message', 'Your Invoice has been created successfully.');
+            return redirect(url('invoices'));
         }
     }
 
@@ -254,5 +293,24 @@ class ClientController extends Controller
 
         $data['client'] = Client::find($request->id);
         return response()->json($data);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showinvoice($id)
+    {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
+        $data['invoice'] = Invoice::with('invoicetrips')->find($id);
+        return response()->view('view_invoice', $data);
     }
 }

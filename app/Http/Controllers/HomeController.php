@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     var $data = null;
 
-    /*public function __construct() {
+    public function __construct() {
 
         if (!\Auth::user()) {
             return \Redirect::to('/')->send();
@@ -26,18 +26,18 @@ class HomeController extends Controller
         {
             $data['user'] = \Auth::user();
         }
-    }*/
+    }
 
     public function index()
     {
         $data=array();
-        /*if (!\Auth::user()) {
+        if (!\Auth::user()) {
             return \Redirect::to('/')->send();
         }
         else
         {
             $data['user'] = \Auth::user();
-        }*/
+        }
         return view('layouts/main_content',$data);
     }
 

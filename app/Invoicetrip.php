@@ -11,6 +11,6 @@ class Invoicetrip extends Model
      */
     public function invoice()
     {
-        return $this->belongsTo('App\invoice');
+        return $this->belongsTo('App\Invoice');
     }
 }

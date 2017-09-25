@@ -276,6 +276,7 @@ class ComposerStaticInitbcbce1bf40e45cf373d081f0bff3e0c7
     );
 
     public static $classMap = array (
+        'AddClientemailToInvoices' => __DIR__ . '/../..' . '/database/migrations/2017_09_25_170244_add_clientemail_to_invoices.php',
         'AddSalaryToDrivers' => __DIR__ . '/../..' . '/database/migrations/2017_08_29_155639_add_salary_to_drivers.php',
         'CrateServicingsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_13_170550_crate_servicings_table.php',
         'CreateClientsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_11_154457_create_clients_table.php',

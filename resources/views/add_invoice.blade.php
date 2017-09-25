@@ -52,9 +52,12 @@
           To
          <address>
            {!! csrf_field() !!}
+           <input type="hidden" name="orderid" id="orderid" value="{{rand()}}">
+           <input type="hidden" name="totalamount" id="totalamount" value="">
+           <input type="hidden" name="invoicedate" id="invoicedate" value="{{date('Y-m-d')}}">
              <div class="col-sm-5">
                  <!-- select -->
-                <div class="form-group">
+                <div class="form-group @if ($errors->has('clientid')) has-error @endif">
                   <label>Client Name</label>
                   <select class="form-control" name="clientid" id="clientid" onchange="getClientDetails()" required>
                     <option value="">Select Client</option>
@@ -62,12 +65,14 @@
                      <option value="{{ $client->id }}">{{$client->clientname}}</option>
                     @endforeach
                   </select>
+                  @if ($errors->has('clientid')) <p class="help-block">{{ $errors->first('clientid') }}</p> @endif
                 </div>
     
                 <!-- text input -->
-                <div class="form-group">
+                <div class="form-group @if ($errors->has('clientphone')) has-error @endif">
                   <label>Client Phone</label>
                   <input class="form-control" placeholder="Client Phone no." type="text" name="clientphone" id="clientphone" required>
+                  @if ($errors->has('clientphone')) <p class="help-block">{{ $errors->first('clientphone') }}</p> @endif
                 </div>
               </div>
               <div class="col-sm-1">
@@ -76,14 +81,16 @@
               </div>
               <div class="col-sm-5">
                 <!-- text input -->
-                <div class="form-group">
+                <div class="form-group @if ($errors->has('clientname')) has-error @endif">
                    <label>Client Name</label>
                   <input class="form-control" placeholder="Client Name" type="text" name="clientname" id="clientname" >
+                  @if ($errors->has('clientname')) <p class="help-block">{{ $errors->first('clientname') }}</p> @endif
                 </div>
                   <!-- text input -->
-                <div class="form-group">
+                <div class="form-group @if ($errors->has('clientemail')) has-error @endif">
                   <label>Client Email</label>
                   <input class="form-control" placeholder="Client Email" type="text" name="clientemail" id="clientemail" required>
+                  @if ($errors->has('clientemail')) <p class="help-block">{{ $errors->first('clientemail') }}</p> @endif
                 </div>
               </div>
              
@@ -94,9 +101,10 @@
             <label></label>
             <label></label>
            <!-- textarea -->
-              <div class="form-group">
+              <div class="form-group @if ($errors->has('clientaddress')) has-error @endif">
                 <label>Client Address</label>
                   <textarea class="form-control" rows="4" placeholder="Client Address" name="clientaddress" id="clientaddress" required></textarea>
+                  @if ($errors->has('clientaddress')) <p class="help-block">{{ $errors->first('clientaddress') }}</p> @endif
               </div>
         </div>
         <!-- /.col -->

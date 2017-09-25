@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddClientemailToInvoices' => $baseDir . '/database/migrations/2017_09_25_170244_add_clientemail_to_invoices.php',
     'AddSalaryToDrivers' => $baseDir . '/database/migrations/2017_08_29_155639_add_salary_to_drivers.php',
     'CrateServicingsTable' => $baseDir . '/database/migrations/2017_09_13_170550_crate_servicings_table.php',
     'CreateClientsTable' => $baseDir . '/database/migrations/2017_09_11_154457_create_clients_table.php',

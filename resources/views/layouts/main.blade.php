@@ -645,6 +645,7 @@
   
       var total=parseInt(subtotal) + parseInt($("#tax").html()) + parseInt($("#shipping").html());
       $("#total").html(total);
+      $("#totalamount").val(total);
 
        
     });
@@ -712,6 +713,7 @@
         $("#subtotal").html(subtotal);
         var total=parseInt(subtotal) + parseInt($("#tax").html()) + parseInt($("#shipping").html());
         $("#total").html(total);  
+        $("#totalamount").val(total);
     });
 
     function getClientDetails()
