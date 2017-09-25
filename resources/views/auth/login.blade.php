@@ -71,7 +71,7 @@
     </div>
     <!-- /.social-auth-links -->
 
-    <a href="{{ url('/password/reset') }}">I forgot my password</a><br>
+    <a href="{{ url('/password/reset/'.csrf_token()) }}">I forgot my password</a><br>
     <a href="{{ url('auth/register') }}" class="text-center">Register a new membership</a>
 
   </div>

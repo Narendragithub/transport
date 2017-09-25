@@ -17,20 +17,28 @@ class HomeController extends Controller
      */
     var $data = null;
 
-    public function __construct() {
+    /*public function __construct() {
 
         if (!\Auth::user()) {
             return \Redirect::to('/')->send();
         }
         else
         {
-            $this->data['user'] = \Auth::user();
+            $data['user'] = \Auth::user();
         }
-    }
+    }*/
 
     public function index()
     {
-        return view('layouts/main_content');
+        $data=array();
+        /*if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }*/
+        return view('layouts/main_content',$data);
     }
 
     /**
