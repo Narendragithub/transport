@@ -103,7 +103,7 @@
            <!-- textarea -->
               <div class="form-group @if ($errors->has('clientaddress')) has-error @endif">
                 <label>Client Address</label>
-                  <textarea class="form-control" rows="4" placeholder="Client Address" name="clientaddress" id="clientaddress" required></textarea>
+                  <textarea class="form-control" rows="4" placeholder="Client Address" name="clientaddress" id="clientaddress" required > </textarea>
                   @if ($errors->has('clientaddress')) <p class="help-block">{{ $errors->first('clientaddress') }}</p> @endif
               </div>
         </div>
@@ -171,14 +171,14 @@
                 <th style="width:50%" >Subtotal:</th>
                 <td><i class="fa fa-fw fa-rupee"></i><span id="subtotal">00.00</span></td>
               </tr>
-              <tr>
+              <!-- <tr>
                 <th>Tax (9.3%)</th>
                 <td><i class="fa fa-fw fa-rupee"></i><span id="tax">00.00</span></td>
               </tr>
               <tr>
                 <th>Shipping:</th>
                 <td><i class="fa fa-fw fa-rupee"></i><span id="shipping">00.00</td>
-              </tr>
+              </tr> -->
               <tr>
                 <th>Total:</th>
                 <td><i class="fa fa-fw fa-rupee"></i><span id="total">00.00</td>
@@ -193,12 +193,9 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
-          <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-          <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Invoice
-          </button>
-          <button type="submit" class="btn btn-primary pull-right" style="margin-right: 5px;">
-            <i class="fa fa-download"></i> Generate PDF
-          </button>
+          <button type="submit" name="print_invoice" class="btn btn-default pull-right" style="margin-left: 5px;margin-right: 5px;"><i class="fa fa-print"></i> Print</button>
+          <button type="submit" name="submit_invoice" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Invoice</button>
+          <button type="submit" name="generate_pdf" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
         </div>
       </div>
     </section>

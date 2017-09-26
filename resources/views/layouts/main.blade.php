@@ -642,8 +642,8 @@
       });
 
       $("#subtotal").html(subtotal);
-  
-      var total=parseInt(subtotal) + parseInt($("#tax").html()) + parseInt($("#shipping").html());
+      //var total=parseInt(subtotal) + parseInt($("#tax").html()) + parseInt($("#shipping").html());
+      var total=parseInt(subtotal);
       $("#total").html(total);
       $("#totalamount").val(total);
 
@@ -711,7 +711,8 @@
         });
 
         $("#subtotal").html(subtotal);
-        var total=parseInt(subtotal) + parseInt($("#tax").html()) + parseInt($("#shipping").html());
+        //var total=parseInt(subtotal) + parseInt($("#tax").html()) + parseInt($("#shipping").html());
+        var total=parseInt(subtotal);
         $("#total").html(total);  
         $("#totalamount").val(total);
     });

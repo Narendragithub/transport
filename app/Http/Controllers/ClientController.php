@@ -265,7 +265,7 @@ class ClientController extends Controller
             $invoice->clientname=$request->clientname;
             $invoice->clientphone=$request->clientphone;
             $invoice->clientemail=$request->clientemail;
-            $invoice->clienteaddress=$request->clientaddress;
+            $invoice->clientaddress=trim($request->clientaddress);
             $invoice->totalamount=$request->totalamount;
             $invoice->invoicedate=$request->invoicedate;
             $invoice->save();
@@ -312,5 +312,84 @@ class ClientController extends Controller
         }
         $data['invoice'] = Invoice::with('invoicetrips')->find($id);
         return response()->view('view_invoice', $data);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editinvoice($id)
+    {
+        if (!\Auth::user()) {
+            return \Redirect::to('/')->send();
+        }
+        else
+        {
+            $data['user'] = \Auth::user();
+        }
+        $data['invoice'] = Invoice::with('invoicetrips')->find($id);
+        return response()->view('edit_invoice', $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateinvoice(Request $request)
+    {
+        //echo "<pre>";
+       // print_r($_POST);
+       // die();
+        $rules = array(
+            'clientid'=>'required|integer',  
+            'clientname' => 'required',                    
+            'clientphone'   => 'required',     
+            'clientemail'   => 'required|email',
+            'clientaddress'   => 'required',
+          
+        );
+
+        
+        $validator = Validator::make(Input::all(), $rules);
+        if($validator->fails()) 
+        {
+            $messages = $validator->messages();
+            return Redirect::to('/editinvoice')->withErrors($validator)->withInput(Input::all());
+
+        }
+        else
+        {
+            $invoice= new Invoice;
+            $invoice->orderid=$request->orderid;
+            $invoice->clientid=$request->clientid;
+            $invoice->clientname=$request->clientname;
+            $invoice->clientphone=$request->clientphone;
+            $invoice->clientemail=$request->clientemail;
+            $invoice->clientaddress=trim($request->clientaddress);
+            $invoice->totalamount=$request->totalamount;
+            $invoice->invoicedate=$request->invoicedate;
+            $invoice->save();
+
+            //Invoice trips
+            $invoicetrip = new Invoicetrip;
+            for($i=0;$i<count($request->vahicleid);$i++)
+            {
+               $invoicetrip->invoiceid=$invoice->id;
+               $invoicetrip->vehicleid=$request->vahicleid[$i];
+               $invoicetrip->trip_amount=$request->ratepertrip[$i];
+               $invoicetrip->total_trip=$request->quantity[$i];
+               $invoicetrip->total_trip_amount=$request->total[$i];
+               $invoicetrip->trip_date=$request->date[$i]; 
+               $invoicetrip->save();
+            }
+
+            \Session::flash('message', 'Your Invoice has been created successfully.');
+            return redirect(url('invoices'));
+        }
     }
 }

@@ -81,4 +81,6 @@ Route::get('/invoices', 'ClientController@invoices');
 Route::get('/createinvoice', 'ClientController@createinvoice');
 Route::post('/createinvoice', 'ClientController@storeinvoice');
 Route::get('/viewinvoice/{id}', 'ClientController@showinvoice');
+Route::get('/editinvoice/{id}','ClientController@editinvoice');
+Route::post('/updateinvoice', 'ClientController@updateupdate');
 Route::post('/getClient', 'ClientController@getClient');
