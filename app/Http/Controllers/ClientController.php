@@ -77,7 +77,7 @@ class ClientController extends Controller
 
         $rules = array(
             'clientname' => 'required',                        
-            'clientphone'   => 'required|integer',     
+            'clientphone'   => 'required',     
             'clientemail'   => 'required|email',
             'clientaddress'   => 'required',
           
@@ -271,9 +271,10 @@ class ClientController extends Controller
             $invoice->save();
 
             //Invoice trips
-            $invoicetrip = new Invoicetrip;
+           
             for($i=0;$i<count($request->vahicleid);$i++)
             {
+                $invoicetrip = new Invoicetrip;
                $invoicetrip->invoiceid=$invoice->id;
                $invoicetrip->vehicleid=$request->vahicleid[$i];
                $invoicetrip->trip_amount=$request->ratepertrip[$i];
@@ -329,6 +330,8 @@ class ClientController extends Controller
         {
             $data['user'] = \Auth::user();
         }
+        $data['vehicles'] = Vehicle::all();
+        $data['clients'] = Client::all();
         $data['invoice'] = Invoice::with('invoicetrips')->find($id);
         return response()->view('edit_invoice', $data);
     }
@@ -359,12 +362,12 @@ class ClientController extends Controller
         if($validator->fails()) 
         {
             $messages = $validator->messages();
-            return Redirect::to('/editinvoice')->withErrors($validator)->withInput(Input::all());
+            return Redirect::to('/editinvoice/'.$request->invoiceid)->withErrors($validator)->withInput(Input::all());
 
         }
         else
         {
-            $invoice= new Invoice;
+            $invoice= Invoice::find($request->invoiceid);
             $invoice->orderid=$request->orderid;
             $invoice->clientid=$request->clientid;
             $invoice->clientname=$request->clientname;
@@ -376,10 +379,11 @@ class ClientController extends Controller
             $invoice->save();
 
             //Invoice trips
-            $invoicetrip = new Invoicetrip;
+            $trips = Invoicetrip::where('invoiceid',$request->invoiceid)->delete();
             for($i=0;$i<count($request->vahicleid);$i++)
             {
-               $invoicetrip->invoiceid=$invoice->id;
+               $invoicetrip = new Invoicetrip;
+               $invoicetrip->invoiceid=$request->invoiceid;
                $invoicetrip->vehicleid=$request->vahicleid[$i];
                $invoicetrip->trip_amount=$request->ratepertrip[$i];
                $invoicetrip->total_trip=$request->quantity[$i];
@@ -388,8 +392,24 @@ class ClientController extends Controller
                $invoicetrip->save();
             }
 
-            \Session::flash('message', 'Your Invoice has been created successfully.');
+            \Session::flash('message', 'Your Invoice has been updated successfully.');
             return redirect(url('invoices'));
         }
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function invoicedelete($id)
+    {
+        $Invoice = Invoice::findOrFail($id);
+        $Invoice->delete();
+        $trips = Invoicetrip::where('invoiceid',$id)->delete();
+        \Session::flash('message', 'Your Invoice has been deleted successfully.');
+        return redirect(url('invoices'));
+    }
+
 }

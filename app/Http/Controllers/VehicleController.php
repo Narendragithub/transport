@@ -438,10 +438,9 @@ class VehicleController extends Controller
      */
     public function fueldestroy($id)
     {
-        $fuel = Fuel::findOrFail($id);
-        $fuel->delete();
+        $fuel = Fuel::where('id',$id)->delete();
         \Session::flash('message', 'Your fuel has been deleted successfully.');
-        return redirect(url('fuel'));
+        return redirect(url('vehicle/fuel'));
         
     }
 
@@ -490,7 +489,7 @@ class VehicleController extends Controller
         $rules = array(
             'vehicleno' => 'required',                        
             'autopart_name'   => 'required',     
-            'autopart_contactno'   => 'required|integer', 
+            'autopart_contactno'   => 'required', 
             'city' => 'required',
             'oil_change' => 'required',
             'oil_amount' => 'required',
@@ -567,7 +566,7 @@ class VehicleController extends Controller
         $rules = array(
             'vehicleno' => 'required',                        
             'autopart_name'   => 'required',     
-            'autopart_contactno'   => 'required|integer', 
+            'autopart_contactno'   => 'required', 
             'city' => 'required',
             'oil_change' => 'required',
             'oil_amount' => 'required',
@@ -586,7 +585,7 @@ class VehicleController extends Controller
         if($validator->fails()) 
         {
             $messages = $validator->messages();
-            return Redirect::to('/vehicle/editservicing')->withErrors($validator)->withInput(Input::all());
+            return Redirect::to('/vehicle/editservicing'.$request->id)->withErrors($validator)->withInput(Input::all());
 
         }else{
             

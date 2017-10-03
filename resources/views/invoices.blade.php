@@ -55,7 +55,7 @@
                   <td>{{$invoice->clientphone}}</td>
                   <td>{{$invoice->invoicedate}}</td>
                   <td>Rs. {{$invoice->totalamount}}</td>
-                  <td><a href="{{ url('/invoiceedit/'.$invoice->id) }}" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a> <a href="{{ url('/viewinvoice/'.$invoice->id) }}" data-toggle="tooltip" title="" data-original-title="View"><i class="fa fa-eye"></i></a> <a href="{{ url('/invoicedelete/'.$invoice->id) }}" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a></td>
+                  <td><a href="{{ url('/editinvoice/'.$invoice->id) }}" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-pencil"></i></a> <a href="{{ url('/viewinvoice/'.$invoice->id) }}" data-toggle="tooltip" title="" data-original-title="View"><i class="fa fa-eye"></i></a> <a href="{{ url('/invoicedelete/'.$invoice->id) }}" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a></td>
                 </tr>
                 @endforeach
                 @else

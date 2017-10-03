@@ -193,9 +193,9 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
-          <button type="submit" name="print_invoice" class="btn btn-default pull-right" style="margin-left: 5px;margin-right: 5px;"><i class="fa fa-print"></i> Print</button>
+          <!-- <button type="button" name="print_invoice" id="btnPrintAdd" class="btn btn-primary pull-right" style="margin-left: 5px;margin-right: 5px;"><i class="fa fa-print"></i> Print</button> -->
           <button type="submit" name="submit_invoice" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Invoice</button>
-          <button type="submit" name="generate_pdf" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+          <!-- <button type="submit" name="generate_pdf" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button> -->
         </div>
       </div>
     </section>

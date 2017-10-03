@@ -38,6 +38,9 @@ class HomeController extends Controller
         {
             $data['user'] = \Auth::user();
         }
+
+        
+
         return view('layouts/main_content',$data);
     }
 

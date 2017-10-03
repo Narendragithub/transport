@@ -24,7 +24,7 @@
      <form class="form-horizontal" method="post" action="/createinvoice"> 
     {!! csrf_field() !!}
     <!-- Main content -->
-    <section class="invoice">
+    <section class="invoice" id="dvContents">
       <!-- title row -->
       <div class="row">
         <div class="col-xs-12">
@@ -146,8 +146,8 @@
       <!-- this row will not appear when printing -->
       <div class="row no-print">
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-defult pull-right"><i class="fa fa-print"></i> Print</button>
-          <button type="submit" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+          <button type="button" id="btnPrint" class="btn btn-success pull-right"><i class="fa fa-print"></i> Print</button>
+          <!-- <button type="submit" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button> -->
         </div>
       </div>
     </section>
