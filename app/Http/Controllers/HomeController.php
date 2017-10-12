@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Vehicle;
+use App\Driver;
+use App\Fuel;
+use App\Servicing;
+use App\Client;
+use App\Invoicetrip;
 class HomeController extends Controller
 {
 
@@ -40,7 +45,11 @@ class HomeController extends Controller
         }
 
         
-
+        $data['vehicles'] = Vehicle::count();
+        $data['drivers'] = Driver::count();
+        $data['fuels'] = Fuel::count();
+        $data['clients'] = Client::count();
+        $data['trips'] =Invoicetrip::count();
         return view('layouts/main_content',$data);
     }
 

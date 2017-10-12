@@ -152,7 +152,7 @@
               <small class="label pull-right bg-blue">17</small>
             </span>
           </a>
-        </li> -->
+        </li> 
         <li>
           <a href="pages/mailbox/mailbox.html">
             <i class="fa fa-envelope"></i> <span>Mailbox</span>
@@ -163,7 +163,7 @@
             </span>
           </a>
         </li>
-        <!-- <li class="treeview">
+       <li class="treeview">
           <a href="#">
             <i class="fa fa-folder"></i> <span>Examples</span>
             <span class="pull-right-container">

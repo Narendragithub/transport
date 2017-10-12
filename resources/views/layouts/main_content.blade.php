@@ -23,7 +23,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              <h3>{{$vehicles}}</h3>
 
               <p>Vehicles</p>
             </div>
@@ -38,7 +38,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53</h3>
+              <h3>{{$drivers}}</h3>
 
               <p>Drivers</p>
             </div>
@@ -53,7 +53,7 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3>{{$clients}}</h3>
 
               <p>Clients</p>
             </div>
@@ -68,7 +68,7 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
+              <h3>{{$trips}}</h3>
 
               <p>Trips</p>
             </div>
@@ -102,7 +102,7 @@
           <!-- /.nav-tabs-custom -->
 
           <!-- Chat box -->
-          <div class="box box-success">
+          <div class="box box-success" style="display:none">
             <div class="box-header">
               <i class="fa fa-comments-o"></i>
 
@@ -189,7 +189,7 @@
           <!-- /.box (chat box) -->
 
           <!-- TO DO List -->
-          <div class="box box-primary">
+          <div class="box box-primary" style="display:none">
             <div class="box-header">
               <i class="ion ion-clipboard"></i>
 
@@ -436,7 +436,7 @@
           <!-- /.box -->
 
           <!-- Calendar -->
-          <div class="box box-solid bg-green-gradient">
+          <div class="box box-solid bg-green-gradient" style="display:none">
             <div class="box-header">
               <i class="fa fa-calendar"></i>
 

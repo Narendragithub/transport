@@ -352,7 +352,7 @@ class ClientController extends Controller
             'clientid'=>'required|integer',  
             'clientname' => 'required',                    
             'clientphone'   => 'required',     
-            'clientemail'   => 'required|email',
+            //'clientemail'   => 'required|email',
             'clientaddress'   => 'required',
           
         );
